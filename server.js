@@ -31,7 +31,7 @@ app.get('/ping', function(req, res) {
 
  app.get('/secureping',verifyToken, function(req, res) {
    res.status(200).send({text: "All 2 good. You only get this message if you're authenticated"});
- })
+ });
 
 app.get('/token', function(req, res){
     res.status(200).send({ auth: true, token: token });
@@ -40,7 +40,7 @@ app.get('/token', function(req, res){
 app.post('/login',urlencodedParser, function(req, res){
   console.log(hash.sha256().update('1234').digest('hex'));
   var pin = req.body.pin;
-  if (pin == "03AC674216F3E15C761EE1A5E255F067953623C8B388B4459E13F978D7C846F4"){
+  if (pin === "03AC674216F3E15C761EE1A5E255F067953623C8B388B4459E13F978D7C846F4"){
     res.status(200).send({ auth: true, token: token });
   } else {
     res.status(401).send({ auth: false, message: 'Failed log in' });
@@ -49,7 +49,6 @@ app.post('/login',urlencodedParser, function(req, res){
 
 
 var port = process.env.PORT || 3001;
-// We launch our server on port 3001.
 var server = app.listen(port, function (err) {
   console.log('listening in http://localhost:' + port);
 });
